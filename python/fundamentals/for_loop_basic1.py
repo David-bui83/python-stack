@@ -61,7 +61,7 @@ def flexibleCounter():
     highNum = 9
     mult = 3
     for num in range(lowNum, highNum + 1):
-        if not num % 3:
+        if not num % mult:
             print(num)
 
 
