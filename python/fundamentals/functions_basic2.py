@@ -30,6 +30,7 @@ def values_greater_than_second(p_list):
   for num in p_list:
     if num > second_value:
       new_list.append(num)
+  print(len(new_list))
   return new_list
 
 print(values_greater_than_second([5,2,3,2,1,4]))

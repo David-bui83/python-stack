@@ -56,24 +56,31 @@ print(length([]))
 # Example: minimum([37,2,1,-9]) should return -9
 # Example: minimum([]) should return False
 def minimum(p_list):
-  min = p_list[0]
-  for val in p_list:
-    if min > val:
-      min = val
-  return min
+  if len(p_list) < 1:
+    return False
+  else:
+    min = p_list[0]
+    for val in p_list:
+      if min > val:
+        min = val
+    return min
 print(minimum([37,2,1,-9]))
+print(minimum([]))
 
 # Maximum - Create a function that takes a list and returns the maximum value in the array. If the list is empty, have the function return False.
 # Example: maximum([37,2,1,-9]) should return 37
 # Example: maximum([]) should return False
 def maximum(p_list):
-  max = p_list[0]
-  for val in p_list:
-    if max < val:
-      max = val
-  return max
+  if len(p_list) < 1:
+    return False
+  else:
+    max = p_list[0]
+    for val in p_list:
+      if max < val:
+        max = val
+    return max
 print(maximum([37,2,1,-9]))
-
+print(maximum([]))
 # Ultimate Analysis - Create a function that takes a list and returns a dictionary that has the sumTotal, average, minimum, maximum and length of the list.
 # Example: ultimate_analysis([37,2,1,-9]) should return {'sumTotal': 31, 'average': 7.75, 'minimum': -9, 'maximum': 37, 'length': 4 }
 def ultimate_analysis(p_list):
