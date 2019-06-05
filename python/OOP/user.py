@@ -1,7 +1,7 @@
 class User:
-  def __init__(self, name):
+  def __init__(self, name, account=0):
     self.name = name
-    self.account = 0
+    self.account = account
 
   def make_deposit(self, d_amount):
     self.account += d_amount
