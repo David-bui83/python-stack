@@ -5,18 +5,18 @@ class BankAccount:
   
   def deposit(self, amount):
     if amount > 0:
-      self.balance += amount
+      self.balance += abs(amount)
     return self
 
   def withdraw(self, amount):
-    if amount < self.balance:
+    if self.balance - amount > 0:
       self.balance -= amount
-      return self
+      return True
     print('Insufficient fund')
-    return self
+    return False
 
   def display_account_info(self):
-    print(self.balance)
+    print(f"Available funds: {self.balance}")
     return self
 
   def yield_interest(self):
@@ -25,9 +25,9 @@ class BankAccount:
     return self
 
 
-account1 = BankAccount()
-account2 = BankAccount()
+# account1 = BankAccount()
+# account2 = BankAccount()
 
-account1.deposit(1000).deposit(1000).deposit(1000).withdraw(200).yield_interest().display_account_info()
+# account1.deposit(1000).deposit(1000).deposit(1000).withdraw(200).yield_interest().display_account_info()
 
-account2.deposit(1000).deposit(1000).withdraw(200).withdraw(200).withdraw(200).withdraw(200).yield_interest().display_account_info()
+# account2.deposit(1000).deposit(1000).withdraw(200).withdraw(200).withdraw(200).withdraw(200).yield_interest().display_account_info()
