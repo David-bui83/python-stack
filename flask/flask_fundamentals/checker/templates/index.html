@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <script type="text/javascript" src="{{url_for('static', filename='js/main.js')}}"></script>
+  <title>Checker</title>
+  <style>
+    .box1 {
+      background-color: {{c1}};
+    }
+    .box2 {
+      background-color: {{c2}};
+    }
+  </style>
+</head>
+<body>
+  <table>
+    {% for i in range(0,n_row) %}
+      {% if i % 2 == 0%}
+        <div class="row">
+          {% for j in range(0,n_col) %}
+            {%if j % 2 == 1 %}
+              <div class="box1"></div>
+            {% else %}
+              <div class="box2"></div>
+            {%endif%}
+          {%endfor%}
+        </div>
+      {%else%}
+        <div class="row">
+            {% for j in range(0,n_col) %}
+              {%if j % 2 == 0 %}
+                <div class="box1"></div>
+              {% else %}
+                <div class="box2"></div>
+              {%endif%}
+            {%endfor%}
+        </div>
+      {%endif%}
+    {% endfor %}
+  </table>
+</body>
+</html>

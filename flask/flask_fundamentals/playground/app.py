@@ -1,4 +1,7 @@
 from flask import Flask, render_template
+import re
+
+HEX_MATCH = re.compile(r"^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")
 
 app = Flask(__name__)
 
@@ -15,6 +18,9 @@ def play1(num):
   return render_template('play.html', num_boxes=int(num))
 @app.route('/play/<num>/<color>')
 def play2(num, color):
+  if HEX_MATCH.match(color):
+    color = "#" + color
+  print(color)
   return render_template('play.html', num_boxes=int(num), box_color=color)
 
 @app.errorhandler(404)
