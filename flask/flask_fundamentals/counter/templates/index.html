@@ -26,9 +26,10 @@
         <div class="jumbotron">
             <h1 class="display-4">Counter</h1>
             <p class="lead">Number of times page visited: {{session['visited']}}</p>
+            <p class="lead">Number of times button clicked: {{session['clicked']}}</p>
             <hr class="my-4">
             
-            <a href="/show" class="btn btn-primary btn-lg" role="button">Add 2</a>
+            <a href="/clicked" class="btn btn-primary btn-lg" role="button">Add 2</a>
             <a class="btn btn-primary btn-lg" href="/reset" role="button">Reset</a>
             <div class="fcontainer">
                 <form action="/add_input" method="POST" class="fform">
@@ -36,8 +37,6 @@
                   <input class="f_input" type="text" name="number">
                 </form>
             </div>
-           
-           
           </div>
     </div>
     

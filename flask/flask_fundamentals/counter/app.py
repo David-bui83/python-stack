@@ -8,15 +8,22 @@ def index():
   
   if not 'visited' in session:
     session['visited'] = 0
+    session['clicked'] = 0
   else:
     session['visited'] += 1
-  
+
   return render_template('index.html')
 
-@app.route('/show')
+
+
+@app.route('/clicked')
 def show():
-  if 'visited' in session:
-    session['visited'] += 1
+  if not 'clicked' in session:
+    session['clicked'] = 0
+    session['visited'] -=1
+  else:
+    session['clicked'] += 2
+    session['visited'] -=1
   return redirect('/')
 
 @app.route('/reset')
@@ -29,8 +36,12 @@ def addInput():
  
   var = request.form.get('number')
   if var:
-    session['visited'] += int(var) - 1
-    
+    session['clicked'] += int(var) + 1
+    session['clicked'] -= 1
+    session['visited'] -= 1 
+  else:
+    session['visited'] -= 1
+
   return redirect('/')
 
 if __name__ == '__main__':
