@@ -7,9 +7,10 @@ app.secret_key = 'secret key'
 
 @app.route('/')
 def index():
-  session['randNum']= random.randint(1,100)
-  session['visible'] = 'none'
-  session['attempts'] = 0
+  if not 'randNum' in session:
+    session['randNum']= random.randint(1,100)
+    session['visible'] = 'none'
+    session['attempts'] = 0
   return render_template('index.html')
 
 @app.route('/greater')
@@ -20,7 +21,7 @@ def greater():
   session['can_see'] = 'none'
   session['attempt-msg'] = 'You have taken ' + str(session['attempts']) + ' out of 5.'
   print('greater')
-  return render_template('index.html')
+  return redirect('/')
 
 @app.route('/less')
 def less():
@@ -30,7 +31,7 @@ def less():
   session['can_see'] = 'none'
   session['attempt-msg'] = 'You have taken ' + str(session['attempts']) + ' out of 5.'
   print('less')
-  return render_template('index.html')
+  return redirect('/')
 
 @app.route('/winner')
 def winner():
@@ -40,16 +41,17 @@ def winner():
   session['attempt-msg'] = 'You took ' + str(session['attempts']) + ' out of 5 attempts.'
   session['can_see'] = 'inline'
   print('winner')
-  return render_template('index.html')
+  return redirect('/')
 
 @app.route('/loss')
 def loss():
   print('loss')
   session['bg'] = '#333'
   session['wrong'] = 'Game Over'
+  session['winning_num'] = 'The winning number was ' + str(session['randNum'])
   session['attempt-msg'] = 'You have taken ' + str(session['attempts']) + ' out of 5.'
   session['can_see'] = 'inline'
-  return render_template('index.html')
+  return redirect('/')
 
 @app.route('/again')
 def again():
@@ -58,6 +60,7 @@ def again():
 
 @app.route('/guess', methods=['POST'])
 def guess():
+  print(session['randNum'])
   session['user_guess'] = request.form.get('user_guess')
   session['attempts'] += 1
   if session['attempts'] < 5:
