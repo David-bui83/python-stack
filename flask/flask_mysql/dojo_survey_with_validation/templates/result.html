@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
+  <title>Dojo Survery With Validation</title>
+</head>
+<body>
+  <div class="container ">
+    <div class="form-container">
+
+      <h1 class="result-header">Submitted Info</h1>
+    </div>
+    <div class="output-container">
+      <div class="output-left">
+        <p>Name:</p>
+        <p>Dojo Location:</p>
+        <p>Favorite Language:</p>
+        <p>Comment:</p>
+      </div>
+      <div class="output-right">
+        <p>{{user['name']}}</p>
+        <p>{{user['location']}}</p>
+        <p>{{user['language']}}</p>
+        <p>{{user['comment']}}</p>
+      </div>
+      <div>
+        <form action="/">
+          <button class="form-btn">Go Back</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
