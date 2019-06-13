@@ -17,7 +17,9 @@ def validate():
     flash("<h1 class='bg-danger text-center text-light'>Email is not valid!</h1>")
     return redirect('/')
   sql = connectToMySQL('email_validation')
-  emails = sql.query_db('SELECT * FROM emails')
+  emails = sql.query_db('SELECT email FROM emails')
+  print('llllllllll')
+  print(emails)
 
   # check is database is empty
   if len(emails) < 1:
@@ -30,10 +32,12 @@ def validate():
     email_id = sql.query_db(query,data)
     session['email_id'] = email_id
   # check if email exist
-  elif request.form['email'] == emails[0]['email']:
-    flash("<h1 class='bg-danger text-center text-light'>Email already in use!</h1>")
-    return redirect('/')
   else: 
+    for email in emails:
+      if request.form['email'] == email['email']:
+        flash("<h1 class='bg-danger text-center text-light'>Email already in use!</h1>")
+        return redirect('/')
+
     data = {
       'email': request.form['email']
     }
@@ -50,7 +54,7 @@ def success():
   # getting singl email
   sql = connectToMySQL('email_validation')
   email_address = sql.query_db(f"SELECT email FROM emails where id={session['email_id']}")
-  
+
   # check if email is in database
   if email_address:
     flash(f"The email address you entered {email_address[0]['email']} is a VALID email address! Thank you!")
