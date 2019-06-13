@@ -32,7 +32,7 @@ def users_create():
   user_id = mysql.query_db(query, data)
   print(user_id)
 
-  return redirect('/users/'+str(user_id))
+  return redirect('/users/'+ str(user_id))
 
 @app.route('/users/<user_id>')
 def user_id(user_id):
