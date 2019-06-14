@@ -18,8 +18,6 @@ def validate():
     return redirect('/')
   sql = connectToMySQL('email_validation')
   emails = sql.query_db('SELECT email FROM emails')
-  print('llllllllll')
-  print(emails)
 
   # check is database is empty
   if len(emails) < 1:
