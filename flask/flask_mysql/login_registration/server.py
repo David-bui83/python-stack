@@ -12,7 +12,8 @@ bcrypt = Bcrypt(app)
 # Regex for valid email
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 # Regex for valid password 
-PW_REGEX = re.compile(r'^[a-zA-Z0-9]{8,}')
+# PW_REGEX = re.compile(r'^[a-zA-Z0-9]{8,}')
+PW_REGEX = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$")
 
 # Root route
 @app.route('/')
@@ -48,16 +49,16 @@ def process():
       'email': request.form['email']
     }
     sql = connectToMySQL('dojo')
-    query = 'SELECT email from d_users where emial=%(email)s'
+    query = 'SELECT email from d_users where email=%(email)s'
     user_email = sql.query_db(query,data)
-    if not user_email:
+    if user_email:
       is_valid = False
       flash('Email is already in used', 'email')
 
   # Checking for valid email pattern
   if not PW_REGEX.match(request.form['password']):
       is_valid = False
-      flash('Password must be at least 8 characters long', 'password')
+      flash('Password must be at least 8 characters long with at least 1 digit, 1 uppercase, and 1 lowere case alpha', 'password')
 
   # Checking email confirmation
   if request.form['password'] != request.form['confirm_pw']:
