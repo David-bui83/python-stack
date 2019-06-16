@@ -12,8 +12,8 @@ bcrypt = Bcrypt(app)
 # Regex for valid email
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
 # Regex for valid password 
-# PW_REGEX = re.compile(r'^[a-zA-Z0-9]{8,}')
-PW_REGEX = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$")
+PW_REGEX = re.compile(r'^[a-zA-Z0-9]{8,}')
+# PW_REGEX = re.compile(r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$")
 
 # Root route
 @app.route('/')
@@ -149,9 +149,69 @@ def success():
   query = "SELECT * FROM d_users WHERE id=%(id)s"
   # Getting user information from database
   user = sql.query_db(query, data)
-  
+  session['user'] = user
+
+  # Get the list of users to send message to 
+  sql = connectToMySQL('dojo')
+  query = 'SELECT * FROM d_users where id !=%(id)s;'
+  data = {'id': session['user_id']}
+  users = sql.query_db(query, data)
+
+  # print(users)
+  # Get count of messages sent
+  sql = connectToMySQL('dojo')
+  query = 'SELECT count(id) FROM posts WHERE sender_id = %(id)s;'
+  data = {'id': session['user_id']}
+  posts = sql.query_db(query,data)
+  if not posts:
+    posts = 0
+  # print(posts)
+  session['send_count'] = posts[0]['count(id)']
+
+  # Get count of messages receieved
+  sql = connectToMySQL('dojo')
+  query = "SELECT count(id) FROM posts WHERE recipient_id = %(id)s"
+  data = {'id': session['user_id']}
+  messages = sql.query_db(query, data)
+  if not messages:
+    messages[0]['count(id)'] = 0
+  session['received_count'] = messages[0]['count(id)']
+
+  # Get messages from posts
+  sql = connectToMySQL('dojo')
+  # query = 'SELECT * FROM posts JOIN d_users WHERE recipient_id=%(id)s;'
+  query = "SELECT m.id, m.message, m.created_at, s.first_name AS sender_name, s.id AS sender_id, r.id AS recipient_id FROM posts AS m JOIN d_users AS s ON m.sender_id = s.id JOIN d_users AS r ON m.recipient_id = r.id WHERE r.id = %(id)s"
+  data = {'id': session['user_id']}
+  r_messages = sql.query_db(query, data) 
+  print(r_messages)
+  if not r_messages:
+    session['r_messages'] = ''
+  session['r_messages'] = r_messages
+
   # Rendering success.html and returning user information 
-  return render_template('success.html',user=user[0])
+  return render_template('success.html', user=user[0], users=users,)
+
+# Route to post message
+@app.route('/send', methods=['POST'])
+def send_message():
+
+  data = {
+    'sender_id': session['user_id'],
+    'recipient_id': request.form['r_id'],
+    'message': request.form['message']
+  }
+
+  sql = connectToMySQL('dojo')
+  query = "INSERT INTO posts(sender_id, recipient_id, message) VALUES(%(sender_id)s,%(recipient_id)s,%(message)s);"
+  
+  post_id = sql.query_db(query, data)
+  print('post id below')
+  print(post_id)
+
+  print('data from send')
+  print(data)
+  return redirect('/success')
+
 
 # Delete route
 @app.route('/delete')
@@ -162,6 +222,26 @@ def delete():
   
   # Redirect to root
   return redirect('/')
+
+@app.route('/delete/message/<message_id>', methods=['POST'])
+def route(message_id):
+  print(message_id)
+  print(session['user_id'])
+  print(request.form['recipient_id'])
+  if not session:
+    return redirect('/')
+  if int(request.form['recipient_id']) != session['user_id']:
+    return render_template('danger.html')
+
+  sql = connectToMySQL('dojo')
+  query = "DELETE FROM posts where id=%(id)s and recipient_id=%(recipient_id)s;"
+  data = {
+    'id': message_id,
+    'recipient_id': session['user_id']
+  }
+  sql.query_db(query, data)
+  print('suppose to be deleted')
+  return redirect('/success')
 
 # Checking name
 if __name__ == '__main__':

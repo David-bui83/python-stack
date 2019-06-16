@@ -19,7 +19,45 @@
         <a href="/delete" class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Log Out</a>
       </form>
   </nav>
+  <div class="container">
+    <div class="row mt-5">
+      <div class="col">
+        <h1><span class="text-success">{{session['received_count']}}</span> Message(s) for you</h1>
+        <div class="container mt-5">
+          <div class="card w-75 mt-5">
+            {% for mes in session['r_messages'] %}
+            <div class="card-body">
+              <h5 class="card-title">{{mes['sender_name']}}</h5>
+              <p class="card-text">{{mes['message']}}</p>
+              <form action="/delete/message/{{mes['id']}}" method='POST'>
+                <input type="hidden" name='sender_id' value="{{mes['sender_id']}}">
+                <input type='hidden' name='recipient_id' value="{{mes['recipient_id']}}">
+                <button type='submit' class="btn btn-primary float-right">Delete</button>
+              </form>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <h1 class="text-deco">Send Messages</h1>
+        <p class="text-success">You have sent {{session['send_count']}} message(s) so far</p>
+        {% for user in users %}
+        <div class="container mt-5">
+          <form class="form-inline" action="/send" method="POST">
+            <div class="form-group">
+              <label style="width: 100px" for="r_id">{{user['first_name']}}</label>
+              <input type="text" id="r_id" name="message" class="form-control mx-sm-3">
+              <input type="hidden" name='r_id' value="{{user['id']}}">
+              <button type="submit" class="btn btn-dark">Send</button>
+            </div>
+          </form>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
 
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
