@@ -1,0 +1,18 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+header{
+  border: 1px solid black;
+}
+
+
+h1 {
+  text-align: center;
+  color: blue;
+}
+
+p {
+  text-align: center;
+  font-weight: bold;
+  font-size: 36px
+}
