@@ -1,0 +1,84 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+}
+
+.container {
+  border: 1px solid black;
+  width: 960px;
+  margin: auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form {
+  margin-bottom: 20px;
+  margin-left: 25px; 
+}
+.mid-section {
+  text-align: center;
+}
+
+.box {
+  display: inline-block;
+  border: 1px solid black;
+  width: 225px;
+  height: 225px;
+  margin: auto;
+  vertical-align: top;
+}
+
+h3 {
+  margin-top: 20px;
+}
+
+.box-p {
+  margin: 20px;
+}
+
+.output-section {
+  width: 100%;
+  height: 400px;
+  padding: 20px;
+  
+}
+
+.act {
+  margin-bottom: 5px;
+}
+
+.btn {
+  padding: 10px 15px;
+  width: 125px;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.activities {
+  border: 1px solid black;
+  height: 300px;
+  width: 915px;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green
+}
+
+.reset {
+  text-align: center;
+  padding: 20px;
+}
