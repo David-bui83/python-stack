@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'gold/css/style.css'%}">
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="{% static 'book/js/script.js' %}"></script>
+  <title>Books & Authors | Create Books</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lag bg-dark">
+      <a class="navbar-band text-success" href="/">Books & Authors</a>
+    </nav>
+  </header>
+  <div class="container">
+    <h1>Create Books</h1>
+    <hr class="my-4 bg-success">
+    <div class="row mt-5">
+      <div class="col">
+        <h2>Add a Book</h2>
+        <form action="/create_book" method="POST">
+          {% csrf_token %}
+          <div class="form-group row">
+            <label for="title" class="col-sm-2 col-form-label col-form-label-sm">Title:</label>
+            <input type="text" class="form-control form-control-lg" id="title" name="title" placeholder="Enter title">
+          </div>
+          <div class="form-group row">
+            <label for="desc" class="col-sm-2 col-form-label col-form-label-sm">Description:</label> 
+            <textarea type="text" class="form-control form-control-lg" id="desc" name="desc" placeholder="Enter description"></textarea>
+            </div>
+            <button type="submit" class="btn btn-outline-success bg-dark btn-lg">Submit</button>
+        </form>
+      </div>
+      <div class="col">
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <td>ID</td>
+              <td>Title</td>
+              <td>Action</td>
+            </tr>
+          </thead>
+          <tbody>
+              {% for book in books %}
+            <tr>
+              <td>{{book.id}}</td>
+              <td>{{book.title}}</td>
+              <td>
+                <!-- <form accept="/view_book/{{book.id}}" method="GET">
+                </form> -->
+                {% csrf_token %}
+                <a href="/view_book/{{book.id}}" class="text-success">view</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+</body>
+</html>

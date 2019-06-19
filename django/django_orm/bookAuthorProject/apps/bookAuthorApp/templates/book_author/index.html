@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'gold/css/style.css'%}">
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="{% static 'book/js/script.js' %}"></script>
+  <title>Books & Authors</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lag bg-dark">
+      <a class="navbar-band text-success" href="/">Books & Authors</a>
+    </nav>
+  </header>
+ 
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Create Books</h1>
+      <p>Click the button to create a book</p>
+      <a class="btn btn-dark text-success btn-lg" href="/books">Enter</a>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Create Authors</h1>
+      <p>Click the button to create an author</p>
+      <!-- <form action="/" method="POST">
+      </form> -->
+      <a class="btn btn-dark text-success btn-lg" href="/authors">Enter</a>
+    </div>
+  </div>
+  
+</body>
+</html>

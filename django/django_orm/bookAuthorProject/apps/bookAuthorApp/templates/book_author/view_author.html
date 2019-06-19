@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'gold/css/style.css'%}">
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script src="{% static 'book/js/script.js' %}"></script>
+  <title>Books & Authors | View Author</title>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lag bg-dark">
+      <a class="navbar-band text-success" href="/">Books & Authors</a>
+    </nav>
+  </header>
+ <div class="jumbotron">
+   <h1>{{author.first_name}} {{author.last_name}}</h1>
+   <hr class="may-4 bg-success">
+   <h3>ID: {{author.id}}</h3>
+   <div class="row">
+     <div class="col-3">
+       <h4>Notes:</h4>
+     </div>
+     <div class="col-9">
+       {{author.notes}}
+     </div>
+   </div>
+   <hr class="may-4 bg-success">
+   <div class="row">
+     <div class="col">
+       <h3>Books:</h3>
+       <ul>
+         {% for book in books %}
+         <li>{{book.title}}</li>
+         {%endfor%}
+       </ul>
+       <form action="/add_book" method='POST'>
+        {% csrf_token %}
+         <select name="book_id">
+           <option>Add a Book</option>
+            {% for book in all_books %}
+           <option value="{{book.id}}">{{book.title}}</option>
+            {% endfor %}
+         </select>
+         <button name="author_id" value="{{author.id}}" type="submit" class="btn btn-outline-success btn-lg bg-dark">Add</button>
+      </form>
+     </div>
+   </div>
+ </div>
+</body>
+</html>
