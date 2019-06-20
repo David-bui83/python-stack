@@ -15,6 +15,7 @@
   <header>
     <nav class="navbar navbar-expanded-lg bg-dark">
       <a class="navbar-brand text-success" href="/">Tv Shows</a>
+      <a href="/shows" class="text-success">Go Back</a>
     </nav>
   </header>
   <div class="jumbotron">
@@ -24,6 +25,10 @@
     <p><span style="font-weight: bold;">Network: </span>{{show.network}}</p>
     <p><span style="font-weight: bold;">Release Date: </span>{{show.release_date}}</p>
     <p><span style="font-weight: bold;">Description: </span>{{show.desc}}</p>
+    <br>
+    <hr class="may-4 bg-success">
+    <p>Last Updated: {{show.updated_at}}</p>
+    <br>
     <a href="/shows/{{show.id}}/edit" class="text-success">Edit</a> | <a href="/delete/{{show.id}}"class="text-success">Delete</a>
   </div>
   <script
