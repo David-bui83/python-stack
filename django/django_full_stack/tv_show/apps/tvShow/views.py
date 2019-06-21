@@ -24,7 +24,7 @@ def create_show(request):
   # print(datetime.strptime(request.POST['date'], '%Y-%m-%d'))
   exist = Show.objects.filter(title=request.POST['title'])
   if exist:
-    print('asdfasfasdf')
+
     messages.error(request, 'Show already in database')
     return redirect('/shows/new')
   else:
